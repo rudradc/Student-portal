@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduNexus — Smart School Portal</title>
+  <meta name="description" content="EduNexus is a role-based school portal for students, teachers and parents providing real-time academic information and communication tools." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/landing.css" />
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav" id="mainNav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <path d="M14 2L26 8V20L14 26L2 20V8L14 2Z" fill="url(#logoGrad)"/>
+            <path d="M14 8L20 11V17L14 20L8 17V11L14 8Z" fill="white" opacity="0.9"/>
+            <defs>
+              <linearGradient id="logoGrad" x1="2" y1="2" x2="26" y2="26" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#6366f1"/>
+                <stop offset="1" stop-color="#8b5cf6"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <span class="logo-text">EduNexus</span>
+      </a>
+      <div class="nav-links">
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#roles" class="nav-link">Portals</a>
+        <a href="#about" class="nav-link">About</a>
+      </div>
+      <div style="display:flex; align-items:center; gap:16px;">
+        <a href="login.html" class="nav-link" style="font-weight:600;">Sign In</a>
+        <a href="#roles" class="btn btn-primary btn-sm">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-bg">
+      <div class="hero-orb hero-orb-1"></div>
+      <div class="hero-orb hero-orb-2"></div>
+      <div class="hero-orb hero-orb-3"></div>
+      <div class="grid-overlay"></div>
+    </div>
+    <div class="hero-container">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        <span>Smart School Management System</span>
+      </div>
+      <h1 class="hero-title">
+        One Portal,<br/>
+        <span class="gradient-text">Every Role</span>
+        Connected
+      </h1>
+      <p class="hero-subtitle">
+        EduNexus brings students, teachers, and parents together on a single intelligent platform — real-time grades, announcements, attendance, and resources all in one place.
+      </p>
+      <div class="hero-actions">
+        <a href="#roles" class="btn btn-primary btn-lg">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          Choose Your Portal
+        </a>
+        <a href="#features" class="btn btn-ghost btn-lg">
+          Explore Features
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-num">3</span>
+          <span class="stat-label">Role Portals</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num">20+</span>
+          <span class="stat-label">Features</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num">Real-time</span>
+          <span class="stat-label">Updates</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-indicator">
+        <div class="scroll-dot"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Role Selection Section -->
+  <section class="roles-section" id="roles">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-label">Choose Your Portal</span>
+        <h2 class="section-title">Who Are You?</h2>
+        <p class="section-subtitle">Select your role to access a personalized dashboard tailored just for you.</p>
+      </div>
+      <div class="roles-grid">
+        <!-- Student Card -->
+        <div class="role-card role-student" id="roleStudent" onclick="selectRole('student')">
+          <div class="role-card-glow"></div>
+          <div class="role-icon-wrap">
+            <div class="role-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 14l9-5-9-5-9 5 9 5z"/>
+                <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+              </svg>
+            </div>
+          </div>
+          <h3 class="role-title">Student</h3>
+          <p class="role-desc">Access your grades, assignments, timetable, study materials, announcements, and track your academic progress.</p>
+          <ul class="role-features">
+            <li><span class="feat-dot"></span>Live Grades & Results</li>
+            <li><span class="feat-dot"></span>Assignment Tracker</li>
+            <li><span class="feat-dot"></span>Study Resources</li>
+            <li><span class="feat-dot"></span>Attendance Record</li>
+            <li><span class="feat-dot"></span>School Announcements</li>
+          </ul>
+          <div class="role-btn">
+            Enter as Student
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+
+        <!-- Teacher Card -->
+        <div class="role-card role-teacher" id="roleTeacher" onclick="selectRole('teacher')">
+          <div class="role-card-glow"></div>
+          <div class="role-icon-wrap">
+            <div class="role-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+                <path d="M16 3.13a4 4 0 010 7.75"/>
+              </svg>
+            </div>
+          </div>
+          <h3 class="role-title">Teacher</h3>
+          <p class="role-desc">Manage classes, upload study materials, record attendance, post announcements, and monitor student performance.</p>
+          <ul class="role-features">
+            <li><span class="feat-dot"></span>Class Management</li>
+            <li><span class="feat-dot"></span>Grade Entry & Reports</li>
+            <li><span class="feat-dot"></span>Attendance Marking</li>
+            <li><span class="feat-dot"></span>Resource Uploads</li>
+            <li><span class="feat-dot"></span>Parent Communication</li>
+          </ul>
+          <div class="role-btn">
+            Enter as Teacher
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+
+        <!-- Parent Card -->
+        <div class="role-card role-parent" id="roleParent" onclick="selectRole('parent')">
+          <div class="role-card-glow"></div>
+          <div class="role-icon-wrap">
+            <div class="role-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+              </svg>
+            </div>
+          </div>
+          <h3 class="role-title">Parent</h3>
+          <p class="role-desc">Stay updated on your child's academic progress, attendance, events, and communicate directly with teachers.</p>
+          <ul class="role-features">
+            <li><span class="feat-dot"></span>Child's Progress View</li>
+            <li><span class="feat-dot"></span>Attendance Alerts</li>
+            <li><span class="feat-dot"></span>Fee Management</li>
+            <li><span class="feat-dot"></span>Teacher Messages</li>
+            <li><span class="feat-dot"></span>Access Student View</li>
+          </ul>
+          <div class="role-btn">
+            Enter as Parent
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section" id="features">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-label">Platform Features</span>
+        <h2 class="section-title">Everything You Need</h2>
+        <p class="section-subtitle">A comprehensive suite of tools for modern education management.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon fi-blue">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          </div>
+          <h4>Real-time Analytics</h4>
+          <p>Live grade tracking, attendance analytics, and performance reports updated instantly.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon fi-purple">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+          </div>
+          <h4>Instant Messaging</h4>
+          <p>Direct communication channel between teachers and parents for seamless updates.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon fi-green">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+          </div>
+          <h4>Assignment Manager</h4>
+          <p>Students receive, track, and submit assignments while teachers review and grade them.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon fi-orange">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          </div>
+          <h4>Study Library</h4>
+          <p>Organized repository of notes, textbooks, videos, and study materials by subject.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon fi-red" style="background:rgba(239,68,68,0.1);color:#f87171;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.42a2.78 2.78 0 00-1.94 2C1 8.18 1 12 1 12s0 3.82.46 5.58a2.78 2.78 0 001.94 2C5.12 20 12 20 12 20s6.88 0 8.6-.42a2.78 2.78 0 001.94-2C23 15.82 23 12 23 12s0-3.82-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+          </div>
+          <h4>Video Lectures</h4>
+          <p>Watch detailed concept videos organized by subject and chapter to clear your doubts instantly.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon fi-purple">
+             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <h4>Interactive Quizzes</h4>
+          <p>Test your knowledge with timed multiple-choice quizzes and weekly live contests.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon fi-pink">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+          </div>
+          <h4>Smart Alerts</h4>
+          <p>Push notifications for attendance, exam results, fees due, and important events.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon fi-cyan">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <h4>Event Calendar</h4>
+          <p>School events, exam schedules, holidays, and parent-teacher meetings in one calendar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about-section" id="about">
+    <div class="section-container">
+      <div class="about-grid">
+        <div class="about-content">
+          <span class="section-label">About EduNexus</span>
+          <h2 class="section-title" style="text-align:left;">Built for Modern Schools</h2>
+          <p class="about-text">EduNexus is designed to bridge the communication gap between schools, students, teachers, and parents. With role-specific dashboards, every stakeholder gets only the information they need — no clutter, no confusion.</p>
+          <div class="about-highlights">
+            <div class="highlight-item">
+              <div class="h-icon">✓</div>
+              <div>
+                <strong>Role-Based Access</strong>
+                <p>Each portal is curated for its specific user — students, teachers, and parents.</p>
+              </div>
+            </div>
+            <div class="highlight-item">
+              <div class="h-icon">✓</div>
+              <div>
+                <strong>Parent Dual Access</strong>
+                <p>Parents can switch to view the full student dashboard for their child.</p>
+              </div>
+            </div>
+            <div class="highlight-item">
+              <div class="h-icon">✓</div>
+              <div>
+                <strong>Always Up-to-Date</strong>
+                <p>Information is updated in real-time across all portals simultaneously.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="about-visual">
+          <div class="visual-card vc-1">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2"><path d="M12 14l9-5-9-5-9 5 9 5z"/></svg>
+            <span>Student Portal</span>
+          </div>
+          <div class="visual-card vc-2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            <span>Teacher Portal</span>
+          </div>
+          <div class="visual-card vc-3">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+            <span>Parent Portal</span>
+          </div>
+          <div class="visual-center-badge">
+            <div class="vcb-inner">
+              <svg width="36" height="36" viewBox="0 0 28 28" fill="none">
+                <path d="M14 2L26 8V20L14 26L2 20V8L14 2Z" fill="url(#logoGrad2)"/>
+                <path d="M14 8L20 11V17L14 20L8 17V11L14 8Z" fill="white" opacity="0.9"/>
+                <defs>
+                  <linearGradient id="logoGrad2" x1="2" y1="2" x2="26" y2="26" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#6366f1"/>
+                    <stop offset="1" stop-color="#8b5cf6"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+              <span>EduNexus</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">
+          <div class="logo-icon">
+            <svg width="24" height="24" viewBox="0 0 28 28" fill="none">
+              <path d="M14 2L26 8V20L14 26L2 20V8L14 2Z" fill="url(#logoGrad3)"/>
+              <path d="M14 8L20 11V17L14 20L8 17V11L14 8Z" fill="white" opacity="0.9"/>
+              <defs>
+                <linearGradient id="logoGrad3" x1="2" y1="2" x2="26" y2="26" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#6366f1"/>
+                  <stop offset="1" stop-color="#8b5cf6"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <span class="logo-text">EduNexus</span>
+        </a>
+        <p>Smart school portal connecting every stakeholder for a better education experience.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h5>Portals</h5>
+          <a href="student.html">Student Portal</a>
+          <a href="teacher.html">Teacher Portal</a>
+          <a href="parent.html">Parent Portal</a>
+        </div>
+        <div class="footer-col">
+          <h5>Resources</h5>
+          <a href="#">Study Library</a>
+          <a href="#">Announcements</a>
+          <a href="#">Events Calendar</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 EduNexus School Portal. Designed for modern education.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
