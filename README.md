@@ -20,8 +20,7 @@ EduNexus is a comprehensive, interactive student portal system designed to bridg
 - **Frontend Development:** Semantic HTML5, Vanilla JavaScript (ES6+), Modern CSS3 (CSS Variables, Flexbox/Grid).
 - **Design & Prototyping:** Figma.
 
-<img width="1919" height="993" alt="Screenshot 2026-04-07 112745" src="https://github.com/user-attachments/assets/56e4c1fc-2d6c-4f69-8030-6ad05cb6fcf7" />
-<img width="1919" height="993" alt="Screenshot 2026-04-07 112745" src="https://github.com/user-attachments/assets/d7ae586c-8d57-48fb-a474-c5be422d7ab7" />
+
 <img width="1919" height="1008" alt="Screenshot 2026-04-07 114031" src="https://github.com/user-attachments/assets/2e416582-3756-486a-96d0-5dcd668a163b" />
 <img width="1916" height="942" alt="Screenshot 2026-04-07 122952" src="https://github.com/user-attachments/assets/4bc956ea-4288-494e-ac9e-cd33d17b687c" />
 <img width="1919" height="896" alt="Screenshot 2026-04-07 123009" src="https://github.com/user-attachments/assets/8112abe3-3b6d-4b7b-97f6-5377eca5a89e" />
