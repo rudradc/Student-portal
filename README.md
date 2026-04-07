@@ -21,7 +21,7 @@ EduNexus is a comprehensive, interactive student portal system designed to bridg
 - **Design & Prototyping:** Figma.
 
 
-<img width="1919" height="1008" alt="Screenshot 2026-04-07 114031" src="https://github.com/user-attachments/assets/2e416582-3756-486a-96d0-5dcd668a163b" />
+
 <img width="1916" height="942" alt="Screenshot 2026-04-07 122952" src="https://github.com/user-attachments/assets/4bc956ea-4288-494e-ac9e-cd33d17b687c" />
 <img width="1919" height="896" alt="Screenshot 2026-04-07 123009" src="https://github.com/user-attachments/assets/8112abe3-3b6d-4b7b-97f6-5377eca5a89e" />
 <img width="1919" height="891" alt="Screenshot 2026-04-07 123033" src="https://github.com/user-attachments/assets/f7f8bf4a-819f-4110-98e7-fdb62664ade0" />
