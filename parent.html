@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Parent Portal — EduNexus</title>
+  <meta name="description" content="Parent dashboard to monitor child's academic progress, attendance, fees, events and communicate with teachers."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/portal.css"/>
+</head>
+<body class="portal-parent" id="parentBody">
+<div class="portal-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M14 2L26 8V20L14 26L2 20V8L14 2Z" fill="url(#lg1)"/><path d="M14 8L20 11V17L14 20L8 17V11L14 8Z" fill="white" opacity="0.9"/><defs><linearGradient id="lg1" x1="2" y1="2" x2="26" y2="26"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs></svg></div>
+        <span class="logo-text">EduNexus</span>
+      </a>
+    </div>
+    <div class="sidebar-user">
+      <div class="user-avatar">AS</div>
+      <div class="user-info">
+        <div class="user-name">Anjali Sharma</div>
+        <div class="user-role">Parent · 2 children</div>
+      </div>
+    </div>
+
+    <!-- View Switcher -->
+    <div class="view-switcher" id="viewSwitcher">
+      <button class="vs-btn active" id="vsParent" onclick="switchView('parent')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        Parent View
+      </button>
+      <button class="vs-btn student-view" id="vsStudent" onclick="switchView('student')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 14l9-5-9-5-9 5 9 5z"/></svg>
+        Student View
+      </button>
+    </div>
+
+    <!-- PARENT NAV -->
+    <nav class="sidebar-nav" id="parentNav">
+      <div class="sidebar-section-label">Main</div>
+      <button class="sidebar-item active" id="nav-dashboard" onclick="showSection('dashboard')">
+        <div class="s-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+        Dashboard
+      </button>
+      <button class="sidebar-item" id="nav-progress" onclick="showSection('progress')">
+        <div class="s-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10"/></svg></div>
+        Academic Progress
+      </button>
+      <button class="sidebar-item" id="nav-attendance" onclick="showSection('attendance')">
+        <div class="s-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg></div>
+        Attendance
+      </button>
+      <div class="sidebar-section-label">School</div>
+      <button class="sidebar-item" id="nav-fees" onclick="showSection('fees')">
+        <div class="s-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+        Fee Management
+      </button>
+      <button class="sidebar-item" id="nav-events" onclick="showSection('events')">
+        <div class="s-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        Events & Calendar
+      </button>
+      <button class="sidebar-item" id="nav-messages" onclick="showSection('messages')">
+        <div class="s-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg></div>
+        Message Teacher
+        <span style="background:rgba(236,72,153,0.2);color:#f472b6;font-size:0.68rem;padding:2px 7px;border-radius:100px;margin-left:auto;">2</span>
+      </button>
+      <button class="sidebar-item" id="nav-announcements" onclick="showSection('announcements')">
+        <div class="s-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div>
+        Announcements
+      </button>
+    </nav>
+
+    <!-- STUDENT VIEW NAV (hidden by default) -->
+    <nav class="sidebar-nav" id="studentNav" style="display:none;">
+      <div class="sidebar-section-label">Student View</div>
+      <button class="sidebar-item active" onclick="showStudentSection('sdash')">
+        <div class="s-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+        Dashboard
+      </button>
+      <button class="sidebar-item" onclick="showStudentSection('sgrades')">
+        <div class="s-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10"/></svg></div>
+        Grades
+      </button>
+      <button class="sidebar-item" onclick="showStudentSection('sttable')">
+        <div class="s-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        Timetable
+      </button>
+      <button class="sidebar-item" onclick="showStudentSection('sassign')">
+        <div class="s-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/></svg></div>
+        Assignments
+      </button>
+    </nav>
+
+    <div class="sidebar-footer" id="parentFooter">
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <header class="portal-header">
+      <div class="page-title-area">
+        <h2 id="currentPageTitle">Dashboard</h2>
+        <p id="currentPageSub">Parent Portal — Monitoring your child's progress</p>
+      </div>
+      <div class="portal-header-right">
+        <button class="hamburger" onclick="toggleSidebar()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <button class="header-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg><span class="notif-badge"></span></button>
+        <div class="user-avatar" style="width:38px;height:38px;font-size:0.85rem;border-radius:50%;background:rgba(236,72,153,0.2);color:#f472b6;display:flex;align-items:center;justify-content:center;font-weight:700;cursor:pointer;">AS</div>
+      </div>
+    </header>
+
+    <div class="content-area" id="parentContentArea">
+
+      <!-- PARENT SECTIONS WRAPPER -->
+      <div id="parentSections">
+
+        <!-- DASHBOARD -->
+        <section id="section-dashboard" class="page-section">
+          <div class="welcome-banner" style="background:linear-gradient(135deg,rgba(236,72,153,0.15),rgba(236,72,153,0.08));border-color:rgba(236,72,153,0.25);">
+            <div class="welcome-text"><h2>Welcome back, Anjali! 💖</h2><p>Track your children's progress and stay connected with their school activities.</p></div>
+            <div class="welcome-illus">👨‍👩‍👧‍👦</div>
+          </div>
+
+          <!-- ══ STUDENT PORTAL DIRECT ACCESS BANNER ══ -->
+          <div style="
+            background:linear-gradient(135deg,rgba(99,102,241,0.15),rgba(139,92,246,0.1));
+            border:1.5px solid rgba(99,102,241,0.35);border-radius:18px;
+            padding:20px 24px;margin-bottom:28px;
+            display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+            position:relative;overflow:hidden;
+          ">
+            <div style="position:absolute;top:-40px;right:-40px;width:120px;height:120px;background:#6366f1;border-radius:50%;filter:blur(50px);opacity:0.12;"></div>
+            <div style="width:52px;height:52px;border-radius:15px;background:rgba(99,102,241,0.2);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;">🎓</div>
+            <div style="flex:1;min-width:180px;position:relative;z-index:1;">
+              <div style="font-size:1rem;font-weight:800;margin-bottom:4px;">Access Student Portal</div>
+              <div style="font-size:0.82rem;color:var(--text-muted);">View your child's full dashboard — grades, assignments, timetable, daily tasks &amp; quiz scores</div>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;position:relative;z-index:1;">
+              <button onclick="switchView('student')" style="
+                padding:11px 22px;border-radius:11px;border:none;
+                background:linear-gradient(135deg,#6366f1,#8b5cf6);
+                color:white;font-family:inherit;font-size:0.875rem;font-weight:700;
+                cursor:pointer;transition:all 0.2s;white-space:nowrap;
+              " onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(99,102,241,0.4)'" onmouseout="this.style.transform='';this.style.boxShadow='';">
+                🎓 Student View
+              </button>
+              <button onclick="window.open('student.html','_blank')" style="
+                padding:11px 22px;border-radius:11px;
+                border:1px solid rgba(99,102,241,0.4);
+                background:rgba(99,102,241,0.08);
+                color:#818cf8;font-family:inherit;font-size:0.875rem;font-weight:600;
+                cursor:pointer;transition:all 0.2s;white-space:nowrap;
+              " onmouseover="this.style.background='rgba(99,102,241,0.15)'" onmouseout="this.style.background='rgba(99,102,241,0.08)'">
+                ↗ Open Full Portal
+              </button>
+            </div>
+          </div>
+
+          <!-- Child Selector -->
+          <div class="content-section-header"><h3>Select Child</h3></div>
+          <div class="student-selector" style="margin-bottom:28px;">
+            <div class="student-chip active" onclick="selectChild(this,'Rahul')">
+              <div style="width:30px;height:30px;border-radius:50%;background:rgba(99,102,241,0.2);color:#818cf8;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.75rem;">RS</div>
+              Rahul Sharma · Class X-A
+            </div>
+            <div class="student-chip" onclick="selectChild(this,'Divya')">
+              <div style="width:30px;height:30px;border-radius:50%;background:rgba(16,185,129,0.2);color:#34d399;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.75rem;">DS</div>
+              Divya Sharma · Class VII-B
+            </div>
+          </div>
+
+          <div id="childInfo">
+            <div class="stats-grid">
+              <div class="stat-card sc-pink"><div class="stat-card-icon sci-pink">📊</div><div class="stat-card-value">86%</div><div class="stat-card-label">Overall Grade</div><div class="stat-card-sub">↑ Improved this term</div></div>
+              <div class="stat-card sc-green"><div class="stat-card-icon sci-green">✓</div><div class="stat-card-value">92%</div><div class="stat-card-label">Attendance</div><div class="stat-card-sub">47 / 51 days</div></div>
+              <div class="stat-card sc-orange"><div class="stat-card-icon sci-orange">⏳</div><div class="stat-card-value">3</div><div class="stat-card-label">Pending Assignments</div><div class="stat-card-sub">Due this week</div></div>
+              <div class="stat-card sc-purple"><div class="stat-card-icon sci-purple">🏅</div><div class="stat-card-value">12th</div><div class="stat-card-label">Class Rank</div><div class="stat-card-sub">Out of 45 students</div></div>
+            </div>
+
+            <div class="grid-2">
+              <div class="card content-section">
+                <div class="content-section-header"><h3>Subject Performance</h3></div>
+                <div style="display:flex;flex-direction:column;gap:14px;">
+                  <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:0.85rem;"><span>Mathematics</span><span style="font-weight:700;color:#f472b6">92/100</span></div><div class="progress-bar-wrap"><div class="progress-bar-fill portal-progress-fill" style="width:92%;"></div></div></div>
+                  <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:0.85rem;"><span>Physics</span><span style="font-weight:700;color:#f472b6">87/100</span></div><div class="progress-bar-wrap"><div class="progress-bar-fill portal-progress-fill" style="width:87%;"></div></div></div>
+                  <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:0.85rem;"><span>Chemistry</span><span style="font-weight:700;color:#f472b6">79/100</span></div><div class="progress-bar-wrap"><div class="progress-bar-fill portal-progress-fill" style="width:79%;"></div></div></div>
+                  <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:0.85rem;"><span>English</span><span style="font-weight:700;color:#f472b6">84/100</span></div><div class="progress-bar-wrap"><div class="progress-bar-fill portal-progress-fill" style="width:84%;"></div></div></div>
+                </div>
+              </div>
+              <div class="card content-section">
+                <div class="content-section-header"><h3>Recent Announcements</h3></div>
+                <div class="announcement-item">
+                  <div class="ann-icon" style="background:rgba(239,68,68,0.12);color:#f87171">!</div>
+                  <div><div class="ann-title">Unit Test — Mathematics</div><div class="ann-text">30th March — Trigonometry Ch. 5 & 6</div><div class="ann-time">2 hours ago</div></div>
+                </div>
+                <div class="announcement-item">
+                  <div class="ann-icon" style="background:rgba(245,158,11,0.12);color:#fbbf24">📅</div>
+                  <div><div class="ann-title">PTM — 2nd April</div><div class="ann-text">Parent-Teacher Meeting from 9 AM – 1 PM</div><div class="ann-time">3 days ago</div></div>
+                </div>
+                <div class="announcement-item">
+                  <div class="ann-icon" style="background:rgba(16,185,129,0.12);color:#34d399">🏅</div>
+                  <div><div class="ann-title">Sports Day — 5th April</div><div class="ann-text">Annual sports day registration opens Monday.</div><div class="ann-time">3 days ago</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PROGRESS -->
+        <section id="section-progress" class="page-section" style="display:none">
+          <div class="welcome-banner" style="background:linear-gradient(135deg,rgba(236,72,153,0.15),rgba(236,72,153,0.08));border-color:rgba(236,72,153,0.25);">
+            <div class="welcome-text"><h2>Academic Progress 📈</h2><p>Detailed academic report for Rahul Sharma — Class X-A.</p></div>
+            <div class="welcome-illus">🎓</div>
+          </div>
+          <div class="card">
+            <div class="data-table-wrap">
+              <table class="data-table">
+                <thead><tr><th>Subject</th><th>Teacher</th><th>Mid-Term</th><th>Practical</th><th>Assignment</th><th>Total</th><th>Grade</th><th>Trend</th></tr></thead>
+                <tbody>
+                  <tr><td style="font-weight:600;color:var(--text-primary)">Mathematics</td><td>Mr. Gupta</td><td>46/50</td><td>—</td><td>18/20</td><td style="font-weight:700;color:#f472b6">92/100</td><td><span class="badge badge-success">A+</span></td><td style="color:#34d399">↑ +5</td></tr>
+                  <tr><td style="font-weight:600;color:var(--text-primary)">Physics</td><td>Mrs. Joshi</td><td>42/50</td><td>17/20</td><td>17/20</td><td style="font-weight:700;color:#f472b6">87/100</td><td><span class="badge badge-success">A</span></td><td style="color:#34d399">↑ +2</td></tr>
+                  <tr><td style="font-weight:600;color:var(--text-primary)">Chemistry</td><td>Mr. Rao</td><td>37/50</td><td>16/20</td><td>17/20</td><td style="font-weight:700;color:#f472b6">79/100</td><td><span class="badge badge-info">B+</span></td><td style="color:#f87171">↓ -3</td></tr>
+                  <tr><td style="font-weight:600;color:var(--text-primary)">English</td><td>Ms. Kapoor</td><td>41/50</td><td>—</td><td>18/20</td><td style="font-weight:700;color:#f472b6">84/100</td><td><span class="badge badge-success">A</span></td><td style="color:#34d399">↑ +4</td></tr>
+                  <tr><td style="font-weight:600;color:var(--text-primary)">History</td><td>Mrs. Mehta</td><td>44/50</td><td>—</td><td>17/20</td><td style="font-weight:700;color:#f472b6">88/100</td><td><span class="badge badge-success">A</span></td><td style="color:#34d399">↑ +1</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ATTENDANCE -->
+        <section id="section-attendance" class="page-section" style="display:none">
+          <div class="welcome-banner" style="background:linear-gradient(135deg,rgba(236,72,153,0.15),rgba(236,72,153,0.08));border-color:rgba(236,72,153,0.25);">
+            <div class="welcome-text"><h2>Attendance Report 📋</h2><p>Attendance record for Rahul Sharma — 2025-26 Session.</p></div>
+            <div class="welcome-illus">🗓️</div>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-card sc-green"><div class="stat-card-icon sci-green">✓</div><div class="stat-card-value">47</div><div class="stat-card-label">Days Present</div></div>
+            <div class="stat-card sc-orange"><div class="stat-card-icon sci-orange">✗</div><div class="stat-card-value">4</div><div class="stat-card-label">Days Absent</div></div>
+            <div class="stat-card sc-pink"><div class="stat-card-icon sci-pink">%</div><div class="stat-card-value">92%</div><div class="stat-card-label">Attendance</div><div class="stat-card-sub">Minimum 75% required</div></div>
+          </div>
+          <div class="card">
+            <div style="padding:12px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:12px;margin-bottom:20px;display:flex;gap:12px;align-items:center;">
+              <span style="color:#34d399;font-size:1.2rem;">✓</span>
+              <div><strong style="color:#34d399;font-size:0.875rem;">Good Standing</strong><p style="font-size:0.78rem;color:var(--text-muted);margin:0;">Rahul's attendance is above the minimum required 75%.</p></div>
+            </div>
+            <div class="data-table-wrap">
+              <table class="data-table">
+                <thead><tr><th>Date</th><th>Day</th><th>Status</th><th>Notified By</th><th>Reason</th></tr></thead>
+                <tbody>
+                  <tr><td>10 Mar 2026</td><td>Tuesday</td><td><span class="badge badge-danger">Absent</span></td><td>Parent</td><td>Medical</td></tr>
+                  <tr><td>18 Mar 2026</td><td>Wednesday</td><td><span class="badge badge-danger">Absent</span></td><td>Parent</td><td>Fever</td></tr>
+                  <tr><td>24 Mar 2026</td><td>Tuesday</td><td><span class="badge badge-warning">Late</span></td><td>Teacher</td><td>Traffic</td></tr>
+                  <tr><td>25 Mar 2026</td><td>Wednesday</td><td><span class="badge badge-success">Present</span></td><td>—</td><td>—</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- FEES -->
+        <section id="section-fees" class="page-section" style="display:none">
+          <div class="welcome-banner" style="background:linear-gradient(135deg,rgba(236,72,153,0.15),rgba(236,72,153,0.08));border-color:rgba(236,72,153,0.25);">
+            <div class="welcome-text"><h2>Fee Management 💰</h2><p>Track and manage fee payments for your children.</p></div>
+            <div class="welcome-illus">💳</div>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-card sc-green"><div class="stat-card-icon sci-green">✓</div><div class="stat-card-value">₹28,000</div><div class="stat-card-label">Paid (Total)</div></div>
+            <div class="stat-card sc-orange"><div class="stat-card-icon sci-orange">⚠</div><div class="stat-card-value">₹5,500</div><div class="stat-card-label">Outstanding</div><div class="stat-card-sub">Due: 31 March 2026</div></div>
+            <div class="stat-card sc-blue"><div class="stat-card-icon sci-blue">📄</div><div class="stat-card-value">3</div><div class="stat-card-label">Receipts</div></div>
+          </div>
+          <div class="card">
+            <div class="content-section-header"><h3>Payment History</h3></div>
+            <div class="data-table-wrap">
+              <table class="data-table">
+                <thead><tr><th>Student</th><th>Fee Type</th><th>Amount</th><th>Due Date</th><th>Paid On</th><th>Status</th></tr></thead>
+                <tbody>
+                  <tr><td>Rahul Sharma</td><td>Term 2 Tuition Fee</td><td>₹12,000</td><td>15 Jan 2026</td><td>12 Jan 2026</td><td><span class="badge badge-success">Paid</span></td></tr>
+                  <tr><td>Rahul Sharma</td><td>Activity Fee</td><td>₹2,500</td><td>1 Mar 2026</td><td>28 Feb 2026</td><td><span class="badge badge-success">Paid</span></td></tr>
+                  <tr><td>Divya Sharma</td><td>Term 2 Tuition Fee</td><td>₹10,000</td><td>15 Jan 2026</td><td>15 Jan 2026</td><td><span class="badge badge-success">Paid</span></td></tr>
+                  <tr><td>Rahul Sharma</td><td>Examination Fee</td><td>₹3,500</td><td>31 Mar 2026</td><td>—</td><td><span class="badge badge-danger">Due</span></td></tr>
+                  <tr><td>Divya Sharma</td><td>Book Fee</td><td>₹2,000</td><td>31 Mar 2026</td><td>—</td><td><span class="badge badge-warning">Pending</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div style="margin-top:20px;">
+              <button class="btn btn-primary btn-md">Pay Outstanding Fee →</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- EVENTS -->
+        <section id="section-events" class="page-section" style="display:none">
+          <div class="welcome-banner" style="background:linear-gradient(135deg,rgba(236,72,153,0.15),rgba(236,72,153,0.08));border-color:rgba(236,72,153,0.25);">
+            <div class="welcome-text"><h2>Events & Calendar 📅</h2><p>Upcoming school events, exams, and important dates.</p></div>
+            <div class="welcome-illus">🎉</div>
+          </div>
+          <div class="card">
+            <div class="data-table-wrap">
+              <table class="data-table">
+                <thead><tr><th>Date</th><th>Event</th><th>Type</th><th>Applicable For</th><th>Action Required</th></tr></thead>
+                <tbody>
+                  <tr><td style="font-weight:600">28 Mar 2026</td><td>Mathematics Unit Test</td><td><span class="badge badge-danger">Exam</span></td><td>Class X</td><td>Help child study Ch. 5 & 6</td></tr>
+                  <tr><td style="font-weight:600">31 Mar 2026</td><td>Fee Payment Deadline</td><td><span class="badge badge-warning">Fee</span></td><td>All Classes</td><td>Clear outstanding fees</td></tr>
+                  <tr><td style="font-weight:600">2 Apr 2026</td><td>Parent-Teacher Meeting</td><td><span class="badge badge-info">Meeting</span></td><td>All Classes</td><td>Confirm attendance</td></tr>
+                  <tr><td style="font-weight:600">5 Apr 2026</td><td>Annual Sports Day</td><td><span class="badge badge-success">Event</span></td><td>All Classes</td><td>Register child for sports</td></tr>
+                  <tr><td style="font-weight:600">14 Apr 2026</td><td>Spring Vacation Begins</td><td><span class="badge badge-purple">Holiday</span></td><td>All Classes</td><td>—</td></tr>
+                  <tr><td style="font-weight:600">21 Apr 2026</td><td>School Reopens</td><td><span class="badge badge-info">Info</span></td><td>All Classes</td><td>—</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- MESSAGES -->
+        <section id="section-messages" class="page-section" style="display:none">
+          <div class="welcome-banner" style="background:linear-gradient(135deg,rgba(236,72,153,0.15),rgba(236,72,153,0.08));border-color:rgba(236,72,153,0.25);">
+            <div class="welcome-text"><h2>Message Teacher 💬</h2><p>Direct communication with your child's class teachers.</p></div>
+            <div class="welcome-illus">📩</div>
+          </div>
+          <div class="grid-2">
+            <div class="card">
+              <div class="content-section-header"><h3>Send New Message</h3></div>
+              <div style="display:flex;flex-direction:column;gap:14px;">
+                <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:6px;">To (Teacher)</label><select style="width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text-primary);border-radius:10px;padding:10px 14px;font-family:inherit;font-size:0.875rem;"><option>Mr. Gupta — Mathematics</option><option>Mrs. Joshi — Physics</option><option>Mr. Rao — Chemistry</option><option>Ms. Kapoor — English</option><option>Mrs. Mehta — History</option></select></div>
+                <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:6px;">Regarding</label><input type="text" placeholder="e.g. Rahul's performance..." style="width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text-primary);border-radius:10px;padding:10px 14px;font-family:inherit;font-size:0.875rem;"/></div>
+                <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:6px;">Message</label><textarea rows="5" placeholder="Write your message..." style="width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text-primary);border-radius:10px;padding:10px 14px;font-family:inherit;font-size:0.875rem;resize:vertical;"></textarea></div>
+                <button class="btn btn-primary btn-md">Send Message</button>
+              </div>
+            </div>
+            <div class="card">
+              <div class="content-section-header"><h3>Message History</h3></div>
+              <div class="announcement-item">
+                <div class="ann-icon" style="background:rgba(139,92,246,0.12);color:#a78bfa">PG</div>
+                <div><div class="ann-title">Mr. Gupta replied</div><div class="ann-text">Rahul has been doing very well in class. His test score was 43/50 — excellent work!</div><div class="ann-time">Yesterday</div></div>
+              </div>
+              <div class="announcement-item">
+                <div class="ann-icon" style="background:rgba(236,72,153,0.12);color:#f472b6">You</div>
+                <div><div class="ann-title">You sent a message</div><div class="ann-text">Hello sir, can you share feedback about Rahul's math performance this term?</div><div class="ann-time">2 days ago</div></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ANNOUNCEMENTS -->
+        <section id="section-announcements" class="page-section" style="display:none">
+          <div class="welcome-banner" style="background:linear-gradient(135deg,rgba(236,72,153,0.15),rgba(236,72,153,0.08));border-color:rgba(236,72,153,0.25);">
+            <div class="welcome-text"><h2>Announcements 📢</h2><p>All school notices and updates.</p></div>
+            <div class="welcome-illus">🔔</div>
+          </div>
+          <div class="card">
+            <div class="announcement-item">
+              <div class="ann-icon" style="background:rgba(239,68,68,0.12);color:#f87171">!</div>
+              <div><div class="ann-title">Unit Test — Mathematics (30 Mar)</div><div class="ann-text">Unit Test for Class X students on Mathematics Ch. 5 & 6 (Trigonometry) scheduled on 30th March 2026.</div><div class="ann-time">2 hours ago · Administration</div></div>
+            </div>
+            <div class="announcement-item">
+              <div class="ann-icon" style="background:rgba(16,185,129,0.12);color:#34d399">💰</div>
+              <div><div class="ann-title">Fee Reminder — Due 31 March</div><div class="ann-text">Kindly clear outstanding examination fees before 31st March 2026 to avoid late charges.</div><div class="ann-time">1 day ago · Accounts Dept.</div></div>
+            </div>
+            <div class="announcement-item">
+              <div class="ann-icon" style="background:rgba(245,158,11,0.12);color:#fbbf24">📅</div>
+              <div><div class="ann-title">Parent-Teacher Meeting — 2nd April</div><div class="ann-text">PTM will be held on 2nd April (Saturday) 9 AM – 1 PM. Please confirm your attendance to the class teacher.</div><div class="ann-time">3 days ago · Principal</div></div>
+            </div>
+            <div class="announcement-item">
+              <div class="ann-icon" style="background:rgba(99,102,241,0.12);color:#818cf8">🏅</div>
+              <div><div class="ann-title">Annual Sports Day Registration</div><div class="ann-text">Sports Day registration opens Monday. Events: Athletics, Cricket, Basketball, Badminton. Register your child.</div><div class="ann-time">3 days ago · Sports Dept.</div></div>
+            </div>
+          </div>
+        </section>
+
+      </div><!-- end parentSections -->
+
+      <!-- STUDENT VIEW (shown when switching) -->
+      <div id="studentViewArea" style="display:none;">
+        <div style="background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.3);border-radius:14px;padding:16px 20px;margin-bottom:24px;display:flex;align-items:center;gap:12px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2"><path d="M12 14l9-5-9-5-9 5 9 5z"/></svg>
+          <div><strong style="color:#818cf8;font-size:0.875rem;">Student View — Rahul Sharma</strong><p style="font-size:0.78rem;color:var(--text-muted);margin:0;">You are viewing the portal as your child. Read-only mode.</p></div>
+          <button onclick="switchView('parent')" class="btn btn-ghost btn-sm" style="margin-left:auto;">← Back to Parent</button>
+        </div>
+
+        <section id="section-sdash" class="page-section">
+          <div class="stats-grid">
+            <div class="stat-card sc-blue"><div class="stat-card-icon sci-blue">📊</div><div class="stat-card-value">86%</div><div class="stat-card-label">Overall Grade</div></div>
+            <div class="stat-card sc-green"><div class="stat-card-icon sci-green">✓</div><div class="stat-card-value">92%</div><div class="stat-card-label">Attendance</div></div>
+            <div class="stat-card sc-orange"><div class="stat-card-icon sci-orange">📋</div><div class="stat-card-value">3</div><div class="stat-card-label">Pending Assignments</div></div>
+            <div class="stat-card sc-purple"><div class="stat-card-icon sci-purple">🏅</div><div class="stat-card-value">12th</div><div class="stat-card-label">Class Rank</div></div>
+          </div>
+          <div class="card">
+            <div class="content-section-header"><h3>Today's Schedule — Class X-A</h3></div>
+            <div class="schedule-list">
+              <div class="schedule-item"><span class="sch-time">8:00 – 8:45</span><div class="sch-dot" style="background:#6366f1"></div><div><div class="sch-subject">Mathematics</div><div class="sch-room">Room 201 · Mr. Gupta</div></div></div>
+              <div class="schedule-item"><span class="sch-time">8:50 – 9:35</span><div class="sch-dot" style="background:#10b981"></div><div><div class="sch-subject">Physics</div><div class="sch-room">Lab 3 · Mrs. Joshi</div></div></div>
+              <div class="schedule-item"><span class="sch-time">9:40 – 10:25</span><div class="sch-dot" style="background:#f59e0b"></div><div><div class="sch-subject">English Literature</div><div class="sch-room">Room 105 · Ms. Kapoor</div></div></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="section-sgrades" class="page-section" style="display:none">
+          <div class="card">
+            <div class="content-section-header"><h3>Full Grade Report</h3></div>
+            <div class="data-table-wrap">
+              <table class="data-table">
+                <thead><tr><th>Subject</th><th>Total / 100</th><th>Grade</th></tr></thead>
+                <tbody>
+                  <tr><td>Mathematics</td><td style="font-weight:700;color:#818cf8">92</td><td><span class="badge badge-success">A+</span></td></tr>
+                  <tr><td>Physics</td><td style="font-weight:700;color:#818cf8">87</td><td><span class="badge badge-success">A</span></td></tr>
+                  <tr><td>Chemistry</td><td style="font-weight:700;color:#818cf8">79</td><td><span class="badge badge-info">B+</span></td></tr>
+                  <tr><td>English</td><td style="font-weight:700;color:#818cf8">84</td><td><span class="badge badge-success">A</span></td></tr>
+                  <tr><td>History</td><td style="font-weight:700;color:#818cf8">88</td><td><span class="badge badge-success">A</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="section-sttable" class="page-section" style="display:none">
+          <div class="card">
+            <div class="content-section-header"><h3>Weekly Timetable — Class X-A</h3></div>
+            <div class="data-table-wrap">
+              <table class="data-table">
+                <thead><tr><th>Period</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th></tr></thead>
+                <tbody>
+                  <tr><td style="color:var(--text-muted);font-size:0.78rem">8:00–8:45</td><td>Mathematics</td><td>Physics</td><td>Chemistry</td><td>Mathematics</td><td>Biology</td></tr>
+                  <tr><td style="color:var(--text-muted);font-size:0.78rem">8:50–9:35</td><td>Physics</td><td>Mathematics</td><td>English</td><td>Physics</td><td>Mathematics</td></tr>
+                  <tr><td style="color:var(--text-muted);font-size:0.78rem">10:40–11:25</td><td>Chemistry</td><td>Biology</td><td>Mathematics</td><td>Chemistry</td><td>Physics</td></tr>
+                  <tr><td style="color:var(--text-muted);font-size:0.78rem">11:30–12:15</td><td>History</td><td>English</td><td>History</td><td>Biology</td><td>Chemistry</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="section-sassign" class="page-section" style="display:none">
+          <div class="card">
+            <div class="content-section-header"><h3>Pending Assignments</h3></div>
+            <div class="data-table-wrap">
+              <table class="data-table">
+                <thead><tr><th>Subject</th><th>Title</th><th>Due Date</th><th>Status</th></tr></thead>
+                <tbody>
+                  <tr><td>Mathematics</td><td>Trigonometry Practice Set</td><td>28 Mar 2026</td><td><span class="badge badge-warning">Pending</span></td></tr>
+                  <tr><td>Physics</td><td>Optics Lab Report</td><td>30 Mar 2026</td><td><span class="badge badge-warning">Pending</span></td></tr>
+                  <tr><td>English</td><td>Essay: Climate Change</td><td>2 Apr 2026</td><td><span class="badge badge-warning">Pending</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+      </div><!-- end studentViewArea -->
+
+    </div><!-- end content-area -->
+  </main>
+</div>
+
+<script src="js/auth.js"></script>
+<script src="js/main.js"></script>
+<script src="js/parent.js"></script>
+</body>
+</html>

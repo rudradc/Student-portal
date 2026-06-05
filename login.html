@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login — EduNexus School Portal</title>
+  <meta name="description" content="Sign in to EduNexus — your role-based school management portal."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #080810;
+      --surface: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.1);
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --indigo: #6366f1;
+      --purple: #8b5cf6;
+      --green: #10b981;
+      --pink: #ec4899;
+      --orange: #f59e0b;
+    }
+    html, body { height: 100%; font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text-primary); overflow-x: hidden; }
+
+    /* ── LAYOUT ── */
+    .auth-layout { display: flex; min-height: 100vh; }
+
+    /* ── LEFT PANEL ── */
+    .auth-left {
+      flex: 1; display: flex; flex-direction: column; justify-content: center;
+      padding: 60px; position: relative; overflow: hidden;
+      background: linear-gradient(145deg, #0d0d1a 0%, #111128 100%);
+    }
+    .auth-left::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 60% at 30% 40%, rgba(99,102,241,0.18) 0%, transparent 70%),
+                  radial-gradient(ellipse 45% 45% at 70% 80%, rgba(139,92,246,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .auth-left .grid-overlay {
+      position: absolute; inset: 0; opacity: 0.04;
+      background-image: linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .auth-brand { position: relative; z-index: 1; }
+    .auth-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 60px; }
+    .auth-logo-icon { width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(135deg, #6366f1, #8b5cf6); display: flex; align-items: center; justify-content: center; }
+    .auth-logo-text { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; font-weight: 800; }
+    .auth-tagline { font-size: 2.4rem; font-weight: 900; line-height: 1.2; margin-bottom: 16px; font-family: 'Plus Jakarta Sans', sans-serif; }
+    .auth-tagline span { background: linear-gradient(90deg, #818cf8, #a78bfa); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .auth-desc { font-size: 1rem; color: var(--text-secondary); line-height: 1.7; max-width: 400px; margin-bottom: 48px; }
+
+    /* Role preview chips */
+    .role-chips { display: flex; flex-direction: column; gap: 12px; }
+    .role-chip { display: flex; align-items: center; gap: 14px; padding: 14px 18px; border-radius: 14px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); transition: all 0.3s; }
+    .role-chip:hover { background: rgba(255,255,255,0.07); transform: translateX(4px); }
+    .role-chip-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .role-chip-text strong { display: block; font-size: 0.875rem; font-weight: 700; }
+    .role-chip-text span { font-size: 0.75rem; color: var(--text-muted); }
+
+    /* Floating orbs */
+    .orb { position: absolute; border-radius: 50%; filter: blur(60px); pointer-events: none; }
+    .orb1 { width: 280px; height: 280px; background: rgba(99,102,241,0.15); top: -80px; right: -80px; }
+    .orb2 { width: 200px; height: 200px; background: rgba(139,92,246,0.1); bottom: 40px; left: -60px; }
+
+    /* ── RIGHT PANEL ── */
+    .auth-right {
+      width: 480px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      padding: 40px 48px; background: rgba(255,255,255,0.01); border-left: 1px solid var(--border);
+      position: relative; overflow-y: auto;
+    }
+    .auth-form-wrap { width: 100%; max-width: 380px; }
+
+    /* Tabs */
+    .auth-tabs { display: flex; gap: 4px; background: rgba(255,255,255,0.05); border-radius: 12px; padding: 4px; margin-bottom: 32px; }
+    .auth-tab { flex: 1; padding: 10px; border-radius: 9px; border: none; background: transparent; color: var(--text-muted); font-family: inherit; font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    .auth-tab.active { background: rgba(99,102,241,0.2); color: #818cf8; }
+
+    /* Role selector */
+    .role-selector { display: flex; gap: 8px; margin-bottom: 24px; }
+    .role-btn {
+      flex: 1; padding: 12px 6px; border-radius: 12px; border: 1px solid var(--border);
+      background: transparent; color: var(--text-muted); font-family: inherit; font-size: 0.78rem;
+      font-weight: 600; cursor: pointer; text-align: center; transition: all 0.2s; display: flex;
+      flex-direction: column; align-items: center; gap: 5px;
+    }
+    .role-btn .rb-emoji { font-size: 1.3rem; }
+    .role-btn.active { border-color: #6366f1; background: rgba(99,102,241,0.12); color: #818cf8; }
+    .role-btn.ar-parent.active { border-color: #ec4899; background: rgba(236,72,153,0.12); color: #f472b6; }
+    .role-btn.ar-teacher.active { border-color: #8b5cf6; background: rgba(139,92,246,0.12); color: #a78bfa; }
+
+    /* Form */
+    .form-group { margin-bottom: 16px; }
+    .form-label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--text-muted); margin-bottom: 7px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .form-input {
+      width: 100%; padding: 12px 16px; border-radius: 11px; border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04); color: var(--text-primary); font-family: inherit;
+      font-size: 0.9rem; transition: border-color 0.2s, box-shadow 0.2s; outline: none;
+    }
+    .form-input:focus { border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99,102,241,0.15); }
+    .form-input::placeholder { color: var(--text-muted); }
+    .form-input.error { border-color: #ef4444; box-shadow: 0 0 0 3px rgba(239,68,68,0.12); }
+
+    /* Password toggle wrapper */
+    .pw-wrap { position: relative; }
+    .pw-wrap .form-input { padding-right: 44px; }
+    .pw-toggle { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--text-muted); padding: 4px; }
+
+    /* Submit button */
+    .btn-auth { width: 100%; padding: 13px; border-radius: 12px; border: none; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.95rem; font-weight: 700; cursor: pointer; margin-top: 8px; transition: all 0.25s; position: relative; overflow: hidden; }
+    .btn-auth:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(99,102,241,0.4); }
+    .btn-auth.loading { pointer-events: none; opacity: 0.7; }
+    .btn-auth span { display: block; transition: opacity 0.2s; }
+    .btn-auth .loader { display: none; }
+    .btn-auth.loading .btn-label { display: none; }
+    .btn-auth.loading .loader { display: block; }
+
+    /* Error message */
+    .auth-error { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.25); color: #f87171; border-radius: 10px; padding: 11px 14px; font-size: 0.82rem; margin-bottom: 16px; display: none; }
+    .auth-error.show { display: block; }
+
+    /* Success */
+    .auth-success { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.25); color: #34d399; border-radius: 10px; padding: 11px 14px; font-size: 0.82rem; margin-bottom: 16px; display: none; }
+    .auth-success.show { display: block; }
+
+    /* Demo quick-access */
+    .demo-section { margin-top: 24px; border-top: 1px solid var(--border); padding-top: 20px; }
+    .demo-label { font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; text-align: center; }
+    .demo-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+    .demo-btn { flex: 1; min-width: 80px; padding: 9px 8px; border-radius: 9px; border: 1px solid var(--border); background: rgba(255,255,255,0.04); color: var(--text-secondary); font-family: inherit; font-size: 0.76rem; font-weight: 600; cursor: pointer; text-align: center; transition: all 0.2s; }
+    .demo-btn:hover { background: rgba(255,255,255,0.08); color: var(--text-primary); }
+
+    /* Divider */
+    .divider { display: flex; align-items: center; gap: 10px; margin: 16px 0; }
+    .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .divider span { font-size: 0.72rem; color: var(--text-muted); }
+
+    /* Mobile */
+    @media (max-width: 800px) {
+      .auth-left { display: none; }
+      .auth-right { width: 100%; border-left: none; padding: 32px 24px; }
+    }
+
+    /* Animation */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+    .auth-form-wrap { animation: fadeUp 0.4s ease; }
+  </style>
+</head>
+<body>
+<div class="auth-layout">
+
+  <!-- LEFT: Branding -->
+  <div class="auth-left">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="grid-overlay"></div>
+    <div class="auth-brand">
+      <div class="auth-logo">
+        <div class="auth-logo-icon">
+          <svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M14 2L26 8V20L14 26L2 20V8L14 2Z" fill="white" opacity="0.9"/><path d="M14 8L20 11V17L14 20L8 17V11L14 8Z" fill="rgba(99,102,241,0.6)"/></svg>
+        </div>
+        <div class="auth-logo-text">EduNexus</div>
+      </div>
+      <div class="auth-tagline">One Portal,<br/><span>Every Role Connected</span></div>
+      <p class="auth-desc">The all-in-one school management system for students, teachers, and parents. Track grades, assignments, attendance and more.</p>
+      <div class="role-chips">
+        <div class="role-chip">
+          <div class="role-chip-icon" style="background:rgba(99,102,241,0.15);">🎓</div>
+          <div class="role-chip-text"><strong>Student</strong><span>Grades, assignments, timetable, quiz & study library</span></div>
+        </div>
+        <div class="role-chip">
+          <div class="role-chip-icon" style="background:rgba(139,92,246,0.15);">👨‍🏫</div>
+          <div class="role-chip-text"><strong>Teacher</strong><span>Grade entry, attendance, assignments & announcements</span></div>
+        </div>
+        <div class="role-chip">
+          <div class="role-chip-icon" style="background:rgba(236,72,153,0.15);">💖</div>
+          <div class="role-chip-text"><strong>Parent</strong><span>Monitor progress, fees, events & message teachers</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Auth Form -->
+  <div class="auth-right">
+    <div class="auth-form-wrap">
+      <!-- Header -->
+      <div style="margin-bottom:28px;">
+        <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.6rem;font-weight:800;margin-bottom:6px;" id="formTitle">Welcome back 👋</div>
+        <div style="font-size:0.875rem;color:var(--text-muted);" id="formSub">Sign in to access your EduNexus portal</div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tabLogin" onclick="switchTab('login')">Sign In</button>
+        <button class="auth-tab" id="tabSignup" onclick="switchTab('signup')">Create Account</button>
+      </div>
+
+      <!-- Role Selector -->
+      <div class="role-selector">
+        <button class="role-btn active" id="rbStudent" onclick="selectRole('student')">
+          <span class="rb-emoji">🎓</span>Student
+        </button>
+        <button class="role-btn ar-teacher" id="rbTeacher" onclick="selectRole('teacher')">
+          <span class="rb-emoji">👨‍🏫</span>Teacher
+        </button>
+        <button class="role-btn ar-parent" id="rbParent" onclick="selectRole('parent')">
+          <span class="rb-emoji">💖</span>Parent
+        </button>
+      </div>
+
+      <!-- Error / Success -->
+      <div class="auth-error" id="authError"></div>
+      <div class="auth-success" id="authSuccess"></div>
+
+      <!-- LOGIN FORM -->
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" id="loginEmail" class="form-input" placeholder="you@edunexus.in" required autocomplete="email"/>
+        </div>
+        <div class="form-group">
+          <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:7px;">
+            <label class="form-label" style="margin-bottom:0;">Password</label>
+            <a href="#" onclick="switchTab('forgot'); return false;" style="font-size:0.75rem; color:#818cf8; text-decoration:none; font-weight:600;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Forgot password?</a>
+          </div>
+          <div class="pw-wrap">
+            <input type="password" id="loginPass" class="form-input" placeholder="Enter your password" required/>
+            <button type="button" class="pw-toggle" onclick="togglePw('loginPass',this)" title="Show/Hide">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+        </div>
+        <button type="submit" class="btn-auth" id="loginBtn">
+          <span class="btn-label">Sign In →</span>
+          <span class="loader">Signing in...</span>
+        </button>
+      </form>
+
+      <!-- SIGNUP FORM (hidden by default) -->
+      <form id="signupForm" style="display:none;" onsubmit="handleSignup(event)">
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" id="signupName" class="form-input" placeholder="e.g. Rahul Sharma" required/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" id="signupEmail" class="form-input" placeholder="you@edunexus.in" required/>
+        </div>
+        <div id="signupClassField" class="form-group">
+          <label class="form-label">Class / Grade</label>
+          <select id="signupClass" class="form-input">
+            <option>Class X-A</option><option>Class X-B</option><option>Class IX-A</option><option>Class IX-B</option><option>Class VIII-A</option><option>Class VII-B</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <div class="pw-wrap">
+            <input type="password" id="signupPass" class="form-input" placeholder="Min. 6 characters" required/>
+            <button type="button" class="pw-toggle" onclick="togglePw('signupPass',this)" title="Show/Hide">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Confirm Password</label>
+          <input type="password" id="signupPass2" class="form-input" placeholder="Re-enter password" required/>
+        </div>
+        <button type="submit" class="btn-auth" id="signupBtn">
+          <span class="btn-label">Create Account →</span>
+          <span class="loader">Creating account...</span>
+        </button>
+      </form>
+
+      <!-- FORGOT PASSWORD FORM -->
+      <form id="forgotForm" style="display:none;" onsubmit="sendResetLink(event)">
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:20px;">Enter the email address associated with your account and we'll send you a link to reset your password.</p>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" id="forgotEmail" class="form-input" placeholder="you@edunexus.in" required/>
+        </div>
+        <button type="submit" class="btn-auth" id="forgotBtn">
+          <span class="btn-label">Send Reset Link →</span>
+          <span class="loader">Sending...</span>
+        </button>
+        <div style="text-align:center; margin-top:16px;">
+          <a href="#" onclick="switchTab('login'); return false;" style="font-size:0.82rem; color:var(--text-muted); text-decoration:none; font-weight:600;" onmouseover="this.style.color='white'" onmouseout="this.style.color='var(--text-muted)'">← Back to Log In</a>
+        </div>
+      </form>
+
+      <!-- Demo Quick Access -->
+      <div class="demo-section">
+        <div class="demo-label">Quick Demo Access</div>
+        <div class="demo-btns">
+          <button class="demo-btn" onclick="quickDemo('student')">🎓 Student</button>
+          <button class="demo-btn" onclick="quickDemo('teacher')">👨‍🏫 Teacher</button>
+          <button class="demo-btn" onclick="quickDemo('parent')">💖 Parent</button>
+        </div>
+        <div style="margin-top:12px;font-size:0.72rem;color:var(--text-muted);text-align:center;">
+          Demo: <code style="background:rgba(255,255,255,0.06);padding:2px 6px;border-radius:4px;">student@edunexus.in</code> / <code style="background:rgba(255,255,255,0.06);padding:2px 6px;border-radius:4px;">Demo@123</code>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ──────────────────────────────────────────────
+// DEMO / DEFAULT ACCOUNTS
+// ──────────────────────────────────────────────
+const DEMO_ACCOUNTS = {
+  student: { name:'Rahul Sharma',   email:'student@edunexus.in', password:'Demo@123', role:'student', class:'Class X-A' },
+  teacher: { name:'Mr. Gupta',      email:'teacher@edunexus.in', password:'Demo@123', role:'teacher' },
+  parent:  { name:'Anjali Sharma',  email:'parent@edunexus.in',  password:'Demo@123', role:'parent',  children:['Rahul Sharma','Divya Sharma'] },
+};
+
+const ROLE_PAGES = { student:'student.html', teacher:'teacher.html', parent:'parent.html' };
+
+// Seed demo accounts into localStorage if not present
+function seedDemoAccounts(){
+  let users = JSON.parse(localStorage.getItem('eduUsers')||'[]');
+  Object.values(DEMO_ACCOUNTS).forEach(acc=>{
+    if(!users.find(u=>u.email===acc.email)) users.push(acc);
+  });
+  localStorage.setItem('eduUsers', JSON.stringify(users));
+}
+seedDemoAccounts();
+
+// ──────────────────────────────────────────────
+// STATE
+// ──────────────────────────────────────────────
+let currentRole = 'student';
+let currentTab = 'login';
+
+// ──────────────────────────────────────────────
+// TAB SWITCHING
+// ──────────────────────────────────────────────
+function switchTab(tab){
+  currentTab = tab;
+  document.getElementById('loginForm').style.display = tab==='login'?'block':'none';
+  document.getElementById('signupForm').style.display = tab==='signup'?'block':'none';
+  const forgotForm = document.getElementById('forgotForm');
+  if(forgotForm) forgotForm.style.display = tab==='forgot'?'block':'none';
+
+  // Toggle outer auth tabs (hide completely when in forgot password)
+  const tabs = document.querySelector('.auth-tabs');
+  const roleSelector = document.querySelector('.role-selector');
+  if(tabs) tabs.style.display = tab==='forgot'?'none':'flex';
+  if(roleSelector) roleSelector.style.display = tab==='forgot'?'none':'flex';
+
+  document.getElementById('tabLogin').classList.toggle('active', tab==='login');
+  document.getElementById('tabSignup').classList.toggle('active', tab==='signup');
+  
+  let title = 'Welcome back 👋';
+  let sub = 'Sign in to access your EduNexus portal';
+  if(tab === 'signup') {
+    title = 'Create your account ✨';
+    sub = 'Join EduNexus — it only takes a minute';
+  } else if (tab === 'forgot') {
+    title = 'Reset Password 🔒';
+    sub = 'We will send you a secure rest link';
+  }
+  
+  document.getElementById('formTitle').textContent = title;
+  document.getElementById('formSub').textContent = sub;
+  clearMessages();
+}
+
+// ──────────────────────────────────────────────
+// ROLE SELECTION
+// ──────────────────────────────────────────────
+function selectRole(role){
+  currentRole = role;
+  ['student','teacher','parent'].forEach(r=>{
+    document.getElementById('rb'+cap(r)).classList.toggle('active', r===role);
+  });
+  // Show/hide class field on signup
+  document.getElementById('signupClassField').style.display = (role==='student'?'block':'none');
+  clearMessages();
+}
+function cap(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
+
+// ──────────────────────────────────────────────
+// LOGIN
+// ──────────────────────────────────────────────
+function handleLogin(e){
+  e.preventDefault();
+  clearMessages();
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass  = document.getElementById('loginPass').value;
+
+  setLoading('loginBtn', true);
+
+  setTimeout(()=>{
+    const users = JSON.parse(localStorage.getItem('eduUsers')||'[]');
+    const user = users.find(u=> u.email.toLowerCase()===email.toLowerCase() && u.password===pass && u.role===currentRole);
+    if(!user){
+      setLoading('loginBtn', false);
+      showError('Invalid credentials or wrong role selected. Try the demo buttons below!');
+      document.getElementById('loginEmail').classList.add('error');
+      document.getElementById('loginPass').classList.add('error');
+      return;
+    }
+    // Set session
+    sessionStorage.setItem('eduSession', JSON.stringify({ ...user, loginTime: new Date().toISOString() }));
+    showSuccess('Login successful! Redirecting...');
+    setTimeout(()=> window.location.href = ROLE_PAGES[user.role], 800);
+  }, 900);
+}
+
+// ──────────────────────────────────────────────
+// SIGNUP
+// ──────────────────────────────────────────────
+function handleSignup(e){
+  e.preventDefault();
+  clearMessages();
+  const name  = document.getElementById('signupName').value.trim();
+  const email = document.getElementById('signupEmail').value.trim();
+  const pass  = document.getElementById('signupPass').value;
+  const pass2 = document.getElementById('signupPass2').value;
+  const cls   = currentRole==='student'?document.getElementById('signupClass').value:null;
+
+  if(pass.length < 6){ showError('Password must be at least 6 characters.'); return; }
+  if(pass !== pass2){ showError('Passwords do not match.'); return; }
+
+  setLoading('signupBtn', true);
+
+  setTimeout(()=>{
+    let users = JSON.parse(localStorage.getItem('eduUsers')||'[]');
+    if(users.find(u=>u.email.toLowerCase()===email.toLowerCase())){
+      setLoading('signupBtn',false);
+      showError('An account with this email already exists. Please sign in.');
+      return;
+    }
+    const newUser = { name, email, password:pass, role:currentRole, class:cls };
+    users.push(newUser);
+    localStorage.setItem('eduUsers', JSON.stringify(users));
+    setLoading('signupBtn',false);
+    showSuccess('Account created! Signing you in...');
+    sessionStorage.setItem('eduSession', JSON.stringify({ ...newUser, loginTime:new Date().toISOString() }));
+    setTimeout(()=> window.location.href = ROLE_PAGES[currentRole], 1000);
+  }, 800);
+}
+
+// ──────────────────────────────────────────────
+// FORGOT PASSWORD
+// ──────────────────────────────────────────────
+function sendResetLink(e){
+  e.preventDefault();
+  clearMessages();
+  const email = document.getElementById('forgotEmail').value.trim();
+  
+  setLoading('forgotBtn', true);
+  
+  setTimeout(()=>{
+    setLoading('forgotBtn', false);
+    // Simulate finding the user email
+    const users = JSON.parse(localStorage.getItem('eduUsers')||'[]');
+    const userExists = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+    
+    if(!userExists) {
+      showError('If an account matches that email, a link was sent. (Demo: Email not found)');
+    } else {
+      document.getElementById('forgotEmail').value = '';
+      showSuccess(`Success! A password reset link has been sent to ${email}.`);
+    }
+  }, 1000);
+}
+
+// ──────────────────────────────────────────────
+// QUICK DEMO
+// ──────────────────────────────────────────────
+function quickDemo(role){
+  selectRole(role);
+  switchTab('login');
+  const acc = DEMO_ACCOUNTS[role];
+  document.getElementById('loginEmail').value = acc.email;
+  document.getElementById('loginPass').value = acc.password;
+  clearMessages();
+  showSuccess('Demo credentials filled! Click Sign In to continue.');
+}
+
+// ──────────────────────────────────────────────
+// UI HELPERS
+// ──────────────────────────────────────────────
+function showError(msg){ const el=document.getElementById('authError'); el.textContent=msg; el.classList.add('show'); }
+function showSuccess(msg){ const el=document.getElementById('authSuccess'); el.textContent=msg; el.classList.add('show'); }
+function clearMessages(){ ['authError','authSuccess'].forEach(id=>{ const el=document.getElementById(id); el.classList.remove('show'); el.textContent=''; }); ['loginEmail','loginPass'].forEach(id=>document.getElementById(id)?.classList.remove('error')); }
+
+function setLoading(btnId, loading){
+  const btn = document.getElementById(btnId);
+  btn.classList.toggle('loading', loading);
+}
+
+function togglePw(inputId, btn){
+  const inp = document.getElementById(inputId);
+  inp.type = inp.type==='password'?'text':'password';
+}
+
+// Check if already logged in
+window.addEventListener('DOMContentLoaded',()=>{
+  const sess = sessionStorage.getItem('eduSession');
+  if(sess){
+    const user = JSON.parse(sess);
+    window.location.href = ROLE_PAGES[user.role] || 'index.html';
+  }
+  // Default auto-fill if URL has role param
+  const params = new URLSearchParams(window.location.search);
+  if(params.get('role')) selectRole(params.get('role'));
+});
+</script>
+</body>
+</html>
